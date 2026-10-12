@@ -1,0 +1,12 @@
+{
+  "executed_at_utc": "2026-10-11T15:47:45.606828+00:00",
+  "base_commit": "5609d5846656782ee631b674ac4b3348d6daf03a",
+  "node": "v24.19.0",
+  "versions": {
+    "vitest": "5.0.3",
+    "vite": "8.3.4",
+    "zod": "3.25.76"
+  },
+  "exit_code": 1,
+  "production_diff": ""
+}
