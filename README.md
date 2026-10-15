@@ -79,3 +79,22 @@ If you have any questions or feedback, feel free to reach out to us at [pruthvir
 I invite other developers to join us in improving this project. Your contributions and ideas are welcome!
 
 Happy coding!
+
+## Collaboration
+
+QA Team **PSWE-06 Calidad y Pruebas de Software**
+
+### Local QA environment
+
+For collaborative QA, each person runs an independent local Appwrite instance
+and test data. Place the QA package in the project root, then run:
+
+```bash
+bun install
+docker compose -f qa-team/appwrite/docker-compose.yml up -d
+bun run dev
+```
+
+Open the app at `http://localhost:3000`. Docker Desktop, Node.js 20+ and Bun
+are required. Local environment configuration is managed outside the
+repository.
