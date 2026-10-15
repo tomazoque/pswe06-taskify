@@ -1,0 +1,55 @@
+
+> jira-clone@0.1.0 test
+> vitest run --reporter=verbose
+
+
+ RUN  v5.0.3 /workspace/scratch/a717f322e06e/taskify
+
+ ✓ tests/unit/task-due-date.test.ts > HU-01 task dueDate validation before production fix > accepts a valid ISO string 3ms
+ ✓ tests/unit/task-due-date.test.ts > HU-01 task dueDate validation before production fix > accepts a valid Date object from form 0ms
+ ✓ tests/unit/task-due-date.test.ts > HU-01 task dueDate validation before production fix > rejects empty string 1ms
+ ✓ tests/unit/task-due-date.test.ts > HU-01 task dueDate validation before production fix > rejects invalid text 0ms
+ ✓ tests/unit/task-due-date.test.ts > HU-01 task dueDate validation before production fix > rejects missing value 0ms
+ × tests/unit/task-due-date.test.ts > HU-01 task dueDate validation before production fix > rejects null 5ms
+   → expected true to be false // Object.is equality
+ × tests/unit/task-due-date.test.ts > HU-01 task dueDate validation before production fix > rejects false 1ms
+   → expected true to be false // Object.is equality
+ × tests/unit/task-due-date.test.ts > HU-01 task dueDate validation before production fix > rejects true 0ms
+   → expected true to be false // Object.is equality
+ × tests/unit/task-due-date.test.ts > HU-01 task dueDate validation before production fix > rejects numeric zero 0ms
+   → expected true to be false // Object.is equality
+ ✓ tests/unit/task-due-date.test.ts > HU-01 task dueDate validation before production fix > rejects plain object 0ms
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 6 passed (10)
+   Start at  15:47:45
+   Duration  171ms (transform 45%, import 29%, tests 20%, worker 6%)
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/task-due-date.test.ts > HU-01 task dueDate validation before production fix > rejects null
+ FAIL  tests/unit/task-due-date.test.ts > HU-01 task dueDate validation before production fix > rejects false
+ FAIL  tests/unit/task-due-date.test.ts > HU-01 task dueDate validation before production fix > rejects true
+ FAIL  tests/unit/task-due-date.test.ts > HU-01 task dueDate validation before production fix > rejects numeric zero
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/unit/task-due-date.test.ts:38:28
+     36|   ])("rejects %s", (_label, dueDate) => {
+     37|     const result = createTaskSchema.safeParse({ ...validTask, dueDate …
+     38|     expect(result.success).toBe(false);
+       |                            ^
+     39|     if (!result.success) {
+     40|       expect(result.error.issues.some((issue) => issue.path[0] === "du…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+
+EXIT_CODE=1
