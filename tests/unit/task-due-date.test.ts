@@ -12,7 +12,7 @@ const validTask = {
   assigneeId: "member-a",
 };
 
-describe("HU-01 task dueDate validation before production fix", () => {
+describe("HU-01 task dueDate validation", () => {
   it.each([
     ["ISO string", "2026-10-20T12:00:00.000Z"],
     ["Date object from form", new Date("2026-10-20T12:00:00.000Z")],

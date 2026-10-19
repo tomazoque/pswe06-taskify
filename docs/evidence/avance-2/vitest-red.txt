@@ -1,0 +1,22 @@
+AVANCE 2 - EVIDENCIA TDD, FASE RED
+Fecha: 2026-10-19
+
+Comando:
+npm test -- --reporter=verbose
+
+Resultado:
+- Código de salida: 1
+- Archivos de prueba: 2 fallidos.
+- Pruebas: 12 aprobadas y 6 fallidas.
+
+HU-01 - 4 fallos:
+- rejects null
+- rejects false
+- rejects true
+- rejects numeric zero
+
+HU-04 - 2 fallos:
+- allows the sole admin to promote another member
+- prevents deleting the last admin while other members remain
+
+La fase RED confirma que las pruebas reproducen los defectos identificados en el análisis previo.
