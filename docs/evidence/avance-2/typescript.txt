@@ -1,0 +1,9 @@
+AVANCE 2 - ANALISIS ESTATICO TYPESCRIPT
+Fecha: 2026-10-19
+
+Comando:
+npx tsc --noEmit
+
+Resultado:
+- Código de salida: 0
+- No se detectaron errores de TypeScript.

@@ -92,6 +92,22 @@ const app = new Hono()
       return c.json({ error: "Cannot delete the only member" }, 401);
     }
 
+    const allAdminInWorkspace = await databases.listDocuments(
+      DATABASE_ID,
+      MEMBERS_ID,
+      [
+        Query.equal("workspaceId", memberToDelete.workspaceId),
+        Query.equal("role", MemberRole.ADMIN),
+      ]
+    );
+
+    if (
+      memberToDelete.role === MemberRole.ADMIN &&
+      allAdminInWorkspace.total === 1
+    ) {
+      return c.json({ error: "Cannot delete the only admin" }, 401);
+    }
+
     await databases.deleteDocument(DATABASE_ID, MEMBERS_ID, memberId);
 
     return c.json({ data: { $id: memberToDelete.$id } });
@@ -135,7 +151,11 @@ const app = new Hono()
         return c.json({ error: "Unauthorized" }, 401);
       }
 
-      if (allAdminInWorkspace.total === 1) {
+      if (
+        role === MemberRole.MEMBER &&
+        memberToUpdate.role === MemberRole.ADMIN &&
+        allAdminInWorkspace.total === 1
+      ) {
         return c.json({ error: "Cannot downgrade the only admin" }, 401);
       }
 
