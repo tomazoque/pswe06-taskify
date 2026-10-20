@@ -7,7 +7,7 @@ npm test -- --reporter=verbose
 Resultado:
 - Código de salida: 0
 - Archivos de prueba: 3 aprobados.
-- Pruebas: 24 aprobadas y 0 fallidas.
+- Pruebas: 31 aprobadas y 0 fallidas.
 
 Historias cubiertas:
 - HU-01: validación estricta de fechas.

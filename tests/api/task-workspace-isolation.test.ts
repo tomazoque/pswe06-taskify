@@ -56,7 +56,15 @@ beforeEach(() => {
       );
 
       return matchesWorkspace && matchesActor
-        ? { total: 1, documents: [{ $id: "member-a", userId: "admin-a", workspaceId: "workspace-a", role: "ADMIN" }] }
+        ? {
+            total: 1,
+            documents: [{
+              $id: "member-a",
+              userId: state.actor,
+              workspaceId: "workspace-a",
+              role: state.actor === "member-a" ? "MEMBER" : "ADMIN",
+            }],
+          }
         : { total: 0, documents: [] };
     }
 
@@ -90,6 +98,17 @@ beforeEach(() => {
 });
 
 describe("HU-02 and HU-03 task workspace isolation", () => {
+  it("rejects an invalid due date with HTTP 400 before writing", async () => {
+    const response = await app.request("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...validTask, dueDate: null }),
+    });
+
+    expect(response.status).toBe(400);
+    expect(state.databases.createDocument).not.toHaveBeenCalled();
+  });
+
   it("allows creating a task when project and assignee belong to the workspace", async () => {
     const response = await app.request("/", {
       method: "POST",
@@ -106,6 +125,28 @@ describe("HU-02 and HU-03 task workspace isolation", () => {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ projectId: "project-a", assigneeId: "member-a" }),
+    });
+
+    expect(response.status).toBe(200);
+    expect(state.databases.updateDocument).toHaveBeenCalled();
+  });
+
+  it("allows updating only the project within the workspace", async () => {
+    const response = await app.request("/task-a", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ projectId: "project-a" }),
+    });
+
+    expect(response.status).toBe(200);
+    expect(state.databases.updateDocument).toHaveBeenCalled();
+  });
+
+  it("allows updating only the assignee within the workspace", async () => {
+    const response = await app.request("/task-a", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ assigneeId: "member-a" }),
     });
 
     expect(response.status).toBe(200);
@@ -154,5 +195,53 @@ describe("HU-02 and HU-03 task workspace isolation", () => {
 
     expect(response.status).toBe(401);
     expect(state.databases.updateDocument).not.toHaveBeenCalled();
+  });
+
+  it("rejects creating a task when project and assignee are from another workspace", async () => {
+    const response = await app.request("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...validTask, projectId: "project-b", assigneeId: "member-b" }),
+    });
+
+    expect(response.status).toBe(401);
+    expect(state.databases.createDocument).not.toHaveBeenCalled();
+  });
+
+  it("rejects updating a task when project and assignee are from another workspace", async () => {
+    const response = await app.request("/task-a", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ projectId: "project-b", assigneeId: "member-b" }),
+    });
+
+    expect(response.status).toBe(401);
+    expect(state.databases.updateDocument).not.toHaveBeenCalled();
+  });
+
+  it("allows a regular member to create a task with same-workspace relationships", async () => {
+    state.actor = "member-a";
+
+    const response = await app.request("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(validTask),
+    });
+
+    expect(response.status).toBe(200);
+    expect(state.databases.createDocument).toHaveBeenCalled();
+  });
+
+  it("allows a regular member to update same-workspace relationships", async () => {
+    state.actor = "member-a";
+
+    const response = await app.request("/task-a", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ projectId: "project-a", assigneeId: "member-a" }),
+    });
+
+    expect(response.status).toBe(200);
+    expect(state.databases.updateDocument).toHaveBeenCalled();
   });
 });

@@ -1,0 +1,13 @@
+AVANCE 2 - HU-01 - VALIDACION HTTP DE FECHA INVALIDA
+Fecha: 2026-10-19
+
+Prueba:
+tests/api/task-workspace-isolation.test.ts
+
+Comportamiento verificado:
+- Se envía una solicitud POST con dueDate igual a null.
+- La API responde HTTP 400.
+- databases.createDocument no es llamado.
+
+Objetivo:
+Demostrar que una fecha inválida es rechazada por la API antes de cualquier escritura.
