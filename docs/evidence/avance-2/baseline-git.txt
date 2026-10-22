@@ -1,0 +1,31 @@
+AVANCE 2 - LINEA BASE DE GIT
+Fecha: 2026-10-19
+
+Comando:
+git status --short --branch
+git log -5 --oneline --decorate
+git diff --stat
+
+Resultado:
+## avance-2-pruebas...origin/avance-2-pruebas
+ M bun.lockb
+ M package-lock.json
+ M package.json
+
+bfbf86c (HEAD -> avance-2-pruebas, origin/main, origin/avance-2-pruebas, origin/HEAD, main) Merge pull request #2 from tomazoque/avance-1-pruebas
+0021e37 Merge pull request #1 from tomazoque/docs-qa-setup
+1dcffe8 (origin/avance-1-pruebas) Delete Avance_1_Taskify_Equipo_Rocket.md
+5349e4e test: add Avance 1 Vitest coverage and red-phase evidence
+5609d58 Merge pull request #1 from tomazoque/docs-qa-setup
+
+Cambios locales:
+- package.json
+- package-lock.json
+- bun.lockb
+
+Resumen del diff:
+- bun.lockb: archivo binario modificado.
+- package-lock.json: 1492 inserciones y 336 eliminaciones.
+- package.json: 2 inserciones y 2 eliminaciones.
+
+Los cambios locales existían antes de iniciar el trabajo y no fueron modificados.

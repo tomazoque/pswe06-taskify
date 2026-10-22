@@ -1,0 +1,28 @@
+AVANCE 2 - HU-02 Y HU-03 - EVIDENCIA TDD, FASE RED
+Fecha: 2026-10-19
+
+Prueba agregada:
+tests/api/task-workspace-isolation.test.ts
+
+Comando focalizado:
+npm test -- tests/api/task-workspace-isolation.test.ts --reporter=verbose
+
+Resultado focalizado:
+- Código de salida: 1
+- 4 pruebas fallidas.
+- Las cuatro pruebas recibieron HTTP 200 en lugar de HTTP 401.
+- Las rutas actuales intentaron continuar hasta la escritura.
+
+Casos fallidos:
+- Rechazar creación con proyecto de otro espacio.
+- Rechazar actualización con proyecto de otro espacio.
+- Rechazar creación con asignado de otro espacio.
+- Rechazar actualización con asignado de otro espacio.
+
+Suite completa posterior a la incorporación de las pruebas:
+- 22 pruebas ejecutadas.
+- 12 aprobadas.
+- 10 fallidas.
+- 3 archivos de prueba fallidos.
+
+La evidencia confirma que HU-02 y HU-03 aún no están implementadas y que las pruebas están correctamente en fase RED.

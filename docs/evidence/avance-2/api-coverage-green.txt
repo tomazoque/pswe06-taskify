@@ -1,0 +1,18 @@
+AVANCE 2 - COBERTURA API HU-02 Y HU-03
+Fecha: 2026-10-19
+
+Archivo:
+tests/api/task-workspace-isolation.test.ts
+
+Cobertura:
+- 12 escenarios de aislamiento entre tareas, proyectos, miembros y espacios.
+- Creación y actualización con relaciones válidas.
+- Rechazo de proyecto de otro espacio.
+- Rechazo de asignado de otro espacio.
+- Rechazo cuando ambos pertenecen a otro espacio.
+- Validación con actor administrador y miembro regular.
+- Verificación de ausencia de escritura en operaciones rechazadas.
+
+Resultado:
+- Los 12 escenarios pasan.
+- La suite completa pasa con 31 pruebas aprobadas y 0 fallidas.

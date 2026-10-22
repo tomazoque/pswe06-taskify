@@ -4,6 +4,7 @@ import { ID, Query } from "node-appwrite";
 import { zValidator } from "@hono/zod-validator";
 
 import { getMember } from "@/features/members/utils";
+import { Member } from "@/features/members/types";
 import { Project } from "@/features/projects/types";
 
 import { createAdminClient } from "@/lib/appwrite";
@@ -176,6 +177,26 @@ const app = new Hono()
         return c.json({ error: "Unauthorized" }, 401);
       }
 
+      const project = await databases.getDocument<Project>(
+        DATABASE_ID,
+        PROJECTS_ID,
+        projectId
+      );
+
+      if (project.workspaceId !== workspaceId) {
+        return c.json({ error: "Project belongs to another workspace" }, 401);
+      }
+
+      const assignee = await databases.getDocument<Member>(
+        DATABASE_ID,
+        MEMBERS_ID,
+        assigneeId
+      );
+
+      if (assignee.workspaceId !== workspaceId) {
+        return c.json({ error: "Assignee belongs to another workspace" }, 401);
+      }
+
       const highestPositionTask = await databases.listDocuments(
         DATABASE_ID,
         TASKS_ID,
@@ -237,6 +258,30 @@ const app = new Hono()
 
       if (!member) {
         return c.json({ error: "aaa" }, 401);
+      }
+
+      if (projectId) {
+        const project = await databases.getDocument<Project>(
+          DATABASE_ID,
+          PROJECTS_ID,
+          projectId
+        );
+
+        if (project.workspaceId !== existingTask.workspaceId) {
+          return c.json({ error: "Project belongs to another workspace" }, 401);
+        }
+      }
+
+      if (assigneeId) {
+        const assignee = await databases.getDocument<Member>(
+          DATABASE_ID,
+          MEMBERS_ID,
+          assigneeId
+        );
+
+        if (assignee.workspaceId !== existingTask.workspaceId) {
+          return c.json({ error: "Assignee belongs to another workspace" }, 401);
+        }
       }
 
       const task = await databases.updateDocument(

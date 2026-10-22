@@ -1,0 +1,15 @@
+AVANCE 2 - ANALISIS ESTATICO ESLINT
+Fecha: 2026-10-19
+
+Comando:
+npm run lint
+
+Resultado:
+- Código de salida: 0
+- No se detectaron errores de ESLint.
+- Se mantiene una advertencia preexistente:
+
+src/features/tasks/components/data-kanban.tsx:159:6
+React Hook useCallback has a missing dependency: 'onChange'.
+
+La advertencia no bloquea la ejecución del análisis estático.

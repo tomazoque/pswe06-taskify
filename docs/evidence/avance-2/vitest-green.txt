@@ -1,0 +1,20 @@
+AVANCE 2 - EVIDENCIA TDD, FASE GREEN
+Fecha: 2026-10-19
+
+Comando:
+npm test -- --reporter=verbose
+
+Resultado:
+- Código de salida: 0
+- Archivos de prueba: 3 aprobados.
+- Pruebas: 31 aprobadas y 0 fallidas.
+
+Historias cubiertas:
+- HU-01: validación estricta de fechas.
+- HU-02: proyecto y espacio deben coincidir.
+- HU-03: asignado y espacio deben coincidir.
+- HU-04: protección del único administrador.
+
+También se verificó que las relaciones válidas del mismo espacio se permiten en creación y actualización de tareas.
+
+La suite completa quedó en verde después de implementar las correcciones.

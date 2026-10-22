@@ -1,0 +1,15 @@
+AVANCE 2 - EVIDENCIA DE BUILD
+Fecha: 2026-10-19
+
+Comando:
+npm run build
+
+Resultado:
+- Código de salida: 0.
+- Compilación optimizada de Next.js completada correctamente.
+- TypeScript y linting finalizaron durante el build.
+- Se mantiene una advertencia preexistente en data-kanban.tsx:159 relacionada con useCallback.
+- Se generaron las páginas estáticas y el informe de rutas sin errores.
+
+Nota:
+La primera ejecución fue bloqueada por la restricción de red de la sandbox al descargar Google Fonts. El segundo intento, con acceso de red autorizado, terminó correctamente.
